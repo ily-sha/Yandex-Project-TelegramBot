@@ -15,6 +15,13 @@ bot = telebot.TeleBot('5339971153:AAG_LkcuTX-Dtag1HelIhW1GC2Zqu8d51_w')
 admin_arr = [5084780807, 1056884661]
 db_session.global_init("db/users.db")
 PROMOCOD = "LASTMEETING"
+RU = 'ru'
+EN = 'en'
+FR = 'fr'
+DE = "de"
+FI = 'fi'
+ES = "es"
+DA = "da"
 
 
 @bot.message_handler(commands=["start"])
@@ -110,6 +117,7 @@ def process(message):
                 user.created_date = datetime.datetime.now()
                 user.user_status = 2
                 db_sess.commit()
+
                 bot.send_message(message.chat.id, 'Вы зарегистрировались! Можете присылать фотографии.')
                 bot.send_message(message.chat.id,
                                  "У нашего сервиса также есть подписка, с расширенными функциями.\nДля подробностей напишите '/more'.")
@@ -214,81 +222,82 @@ def select_language(id):
     fr = "🇫🇷"
     de = "🇩🇪"
     markup = types.InlineKeyboardMarkup()
-    buttonA = types.InlineKeyboardButton(ru, callback_data='ru')
-    buttonB = types.InlineKeyboardButton(en, callback_data='en')
-    buttonC = types.InlineKeyboardButton(fr, callback_data='fr')
-    buttonD = types.InlineKeyboardButton(de, callback_data='de')
-    buttonF = types.InlineKeyboardButton(fi, callback_data='fi')
-    buttonE = types.InlineKeyboardButton(es, callback_data='es')
-    buttonG = types.InlineKeyboardButton(da, callback_data='da')
+    buttonA = types.InlineKeyboardButton(ru, callback_data=RU)
+    buttonB = types.InlineKeyboardButton(en, callback_data=EN)
+    buttonC = types.InlineKeyboardButton(fr, callback_data=FR)
+    buttonD = types.InlineKeyboardButton(de, callback_data=DE)
+    buttonF = types.InlineKeyboardButton(fi, callback_data=FI)
+    buttonE = types.InlineKeyboardButton(es, callback_data=ES)
+    buttonG = types.InlineKeyboardButton(da, callback_data=DA)
     markup.row(buttonA, buttonB, buttonC, buttonD, buttonF, buttonE, buttonG)
     bot.send_message(id, 'Выберите язык, c которого перевести текст:', reply_markup=markup)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "da")
+@bot.callback_query_handler(func=lambda call: call.data == DA)
 def callback_handler_ru(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "da"
+        user.language = DA
         break
     db_sess.commit()
     private(call.message.chat.id)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "es")
+@bot.callback_query_handler(func=lambda call: call.data == ES)
 def callback_handler_ru(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "es"
-        break
-    db_sess.commit()
-    private(call.message.chat.id)
-
-@bot.callback_query_handler(func=lambda call: call.data == "fi")
-def callback_handler_ru(call):
-    db_sess = db_session.create_session()
-    for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "fi"
+        user.language = ES
         break
     db_sess.commit()
     private(call.message.chat.id)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "de")
+@bot.callback_query_handler(func=lambda call: call.data == FI)
 def callback_handler_ru(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "de"
+        user.language = FI
         break
     db_sess.commit()
     private(call.message.chat.id)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "ru")
+@bot.callback_query_handler(func=lambda call: call.data == DE)
 def callback_handler_ru(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "ru"
+        user.language = DE
         break
     db_sess.commit()
     private(call.message.chat.id)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "en")
+@bot.callback_query_handler(func=lambda call: call.data == RU)
+def callback_handler_ru(call):
+    db_sess = db_session.create_session()
+    for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
+        user.language = RU
+        break
+    db_sess.commit()
+    private(call.message.chat.id)
+
+
+@bot.callback_query_handler(func=lambda call: call.data == EN)
 def callback_handler_en(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "en"
+        user.language = EN
         break
     db_sess.commit()
     private(call.message.chat.id)
 
 
-@bot.callback_query_handler(func=lambda call: call.data == "fr")
+@bot.callback_query_handler(func=lambda call: call.data == FR)
 def callback_handler_fr(call):
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
-        user.language = "fr"
+        user.language = FR
         break
     db_sess.commit()
     private(call.message.chat.id)
