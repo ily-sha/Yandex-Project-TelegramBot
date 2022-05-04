@@ -38,11 +38,14 @@ def main(photo, l):
     image_data = base64.b64encode(photo).decode('utf-8')
     response_text = request_analyze(vision_url, iam_token, folder_id, image_data, l)
     arr = []
-    for f in response_text["results"]:
-        for i in f["results"]:
-            for j in i["textDetection"]["pages"]:
-                for h in j["blocks"]:
-                    for a in h["lines"]:
-                        for w in a["words"]:
-                            arr.append(w["text"])
-    return " ".join(arr)
+    try:
+        for f in response_text["results"]:
+            for i in f["results"]:
+                for j in i["textDetection"]["pages"]:
+                    for h in j["blocks"]:
+                        for a in h["lines"]:
+                            for w in a["words"]:
+                                arr.append(w["text"])
+        return " ".join(arr)
+    except Exception as ex:
+        return "С фотографией какая то ошибка"
