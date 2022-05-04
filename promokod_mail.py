@@ -8,7 +8,6 @@ def send_email(email, message):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     try:
-
         server.login(sender, password)
         msg = MIMEText(message)
         msg['Subject'] = 'Промокод:'

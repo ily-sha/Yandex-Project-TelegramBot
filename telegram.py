@@ -206,15 +206,21 @@ def handle_txt(call):
 
 
 def select_language(id):
-
+    da= "🇩🇰"
+    en = "🇬🇧"
+    ru = "🇷🇺"
+    es = "🇪🇸"
+    fi = "🇫🇮"
+    fr = "🇫🇷"
+    de = "🇩🇪"
     markup = types.InlineKeyboardMarkup()
-    buttonA = types.InlineKeyboardButton('ru', callback_data='ru')
-    buttonB = types.InlineKeyboardButton('en', callback_data='en')
-    buttonC = types.InlineKeyboardButton('fr', callback_data='fr')
-    buttonD = types.InlineKeyboardButton('de', callback_data='de')
-    buttonF = types.InlineKeyboardButton('fi', callback_data='fi')
-    buttonE = types.InlineKeyboardButton('es', callback_data='es')
-    buttonG = types.InlineKeyboardButton('da', callback_data='da')
+    buttonA = types.InlineKeyboardButton(ru, callback_data='ru')
+    buttonB = types.InlineKeyboardButton(en, callback_data='en')
+    buttonC = types.InlineKeyboardButton(fr, callback_data='fr')
+    buttonD = types.InlineKeyboardButton(de, callback_data='de')
+    buttonF = types.InlineKeyboardButton(fi, callback_data='fi')
+    buttonE = types.InlineKeyboardButton(es, callback_data='es')
+    buttonG = types.InlineKeyboardButton(da, callback_data='da')
     markup.row(buttonA, buttonB, buttonC, buttonD, buttonF, buttonE, buttonG)
     bot.send_message(id, 'Выберите язык, c которого перевести текст:', reply_markup=markup)
 

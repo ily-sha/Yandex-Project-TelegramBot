@@ -38,7 +38,6 @@ def main(photo, l):
     image_data = base64.b64encode(photo).decode('utf-8')
     response_text = request_analyze(vision_url, iam_token, folder_id, image_data, l)
     arr = []
-    print(response_text)
     for f in response_text["results"]:
         for i in f["results"]:
             for j in i["textDetection"]["pages"]:
