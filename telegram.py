@@ -58,8 +58,8 @@ def more(message):
 
     bot.send_message(message.chat.id,
                      "Расширенная версия нашего приложения включает:\n"
-                     "- перевод текста почти с любого языка мира,\n"
-                     "- возможность сохранения текста в pdf формате.")
+                     "- перевод текста почти с любого языка мира\n"
+                     "- возможность сохранения текста в pdf формате")
     markup = types.InlineKeyboardMarkup()
     buttonB = types.InlineKeyboardButton('оплатить', callback_data='pay')
     markup.row(buttonB)
@@ -69,18 +69,26 @@ def more(message):
 
 @bot.callback_query_handler(func=lambda call: call.data == "pay")
 def payment(call):
-    bot.send_message(call.message.chat.id, "Только сейчас дейтсвует специальное придложение - приведите друга и получи месяц использования"
+    bot.send_message(call.message.chat.id, "Только сейчас дейтсвует специальное предложение - приведите друга и получи месяц использования"
                                            " сервиса бесплатно!")
     # stikers
     bot.send_message(call.message.chat.id,
                      "Для этого Ваш друг должен зарегистироваться в нашем сервисе. После этого Вы указываете его 'username' в этом чате и получаете промокод на почту.")
     bot.send_message(call.message.chat.id,
-                     "Только сначала убедитесь, что у Вашего друга есть нужный параметр.")
+                     "Только для начала необходимо убедиться, что у Вашего друга есть нужный параметр.")
     db_sess = db_session.create_session()
     for user in db_sess.query(User).filter(User.telegram_id.like(int(call.message.chat.id))):
         user.wait_friend = True
         break
     db_sess.commit()
+
+
+@bot.message_handler(commands=["static"])
+def mem(message):
+    db_sess = db_session.create_session()
+    if message.chat.id in admin_arr:
+        for user in db_sess.query(User).all():
+            bot.send_message(message.chat.id, "{} ".format(user.email))
 
 
 @bot.message_handler(commands=["mem"])
