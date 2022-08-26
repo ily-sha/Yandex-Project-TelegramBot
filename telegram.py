@@ -9,9 +9,10 @@ from data.lap import User
 from data.names import Name
 import mail
 import promokod_mail
+import token
 
 
-bot = telebot.TeleBot('5339971153:AAG_LkcuTX-Dtag1HelIhW1GC2Zqu8d51_w')
+bot = telebot.TeleBot(token.token)
 admin_arr = [5084780807, 1056884661]
 db_session.global_init("db/users.db")
 PROMOCOD = "LASTMEETING"
